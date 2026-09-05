@@ -1,5 +1,5 @@
 class Solution {
-    int[] dp = new int[102];
+    int[] dp = new int[101];
     int fun(int i, int[] nums) {
             if (i >= nums.length) {
                 return 0;
