@@ -1,9 +1,9 @@
 class Solution {
     int[] dp = new int[102];
     int fun(int i, int[] nums) {
-        if (i >= nums.length) {
-            return 0;
-        }
+            if (i >= nums.length) {
+                return 0;
+            }
         if (dp[i] != -1) {
             return dp[i];
         }
