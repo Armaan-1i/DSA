@@ -1,5 +1,5 @@
 class Solution {
-    int[][] dp = new int[505][505];
+    int[][] dp;
     int fun(int p, int i, int[] nums, int m, int k) {
         if (i >= nums.length) return 0;
         if (dp[p][i] != -1) {
@@ -19,8 +19,10 @@ class Solution {
         }
         return dp[p][i] = ans;
     }
-    public int maxSumAfterPartitioning(int[] arr, int k) {
-        for (int i = 0; i < 505; i++) {
+    public int maxSumAfterPartitioning(int[] arr, int k) { 
+        int n = arr.length;
+        dp = new int[n][n]; 
+        for (int i = 0; i < n; i++) {
             Arrays.fill(dp[i], -1);
         }
         return fun(0, 0, arr, 0, k);
