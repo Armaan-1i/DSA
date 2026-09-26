@@ -1,37 +1,52 @@
 class Solution {
     int [][] dp;
-    int fun(int i, int p, int[][] pairs) {
-        if (i >= pairs.length)    return 0;
-
-        if (p != -1 && dp[i][p] != -1) {
-            return dp[i][p];
-        }
-     int ans = 0;
-        for (int j = i; j < pairs.length; j++) {
-
-            if (p == -1 || pairs[j][0] > pairs[p][1]) {
-                int take = 1 + fun(j + 1, j, pairs);
-                ans = Math.max(ans, take);
-            }
-        }
-        if (p != -1) {
-            dp[i][p] = ans;
-        }
-
-
-        return ans;
-    }
-
-
     public int findLongestChain(int[][] pairs) {
-        Arrays.sort(pairs, (a, b) -> a[0] - b[0]);
-        int n = pairs.length;
-        dp = new int[1005][1005];
+        dp = new int[ pairs.length][pairs.length];
 
-        for(int i = 0; i< 1005; i++){
+        Arrays.sort(pairs, (a, b) -> a[0] - b[0]);
+
+        for(int i=0; i< pairs.length; i++){
             Arrays.fill(dp[i], -1);
         }
-
-        return fun(0, -1, pairs);
+        int ans = func(pairs, 0, dp);
+        return ans;
     }
+    public int func(int [][] pairs, int i, int [][] dp){
+       
+        if(i>= pairs.length){
+            return 0;
+        }
+        if(dp[i][0] != -1){
+            return dp[i][0];
+        }
+        int id = pairs.length;
+    //     for(int j= i+1; j< pairs.length; j++){
+    //         if(pairs[i][1] < pairs[j][0]){
+    //             id= j;
+    //             break;
+    //         }   
+
+    //     }
+    int low = i+1;
+    int high = pairs.length -1;
+    while(low <= high){
+        int mid = (low + high) / 2;
+        if(pairs[mid][0] > pairs[i][1]){
+            id= mid;
+            high = mid -1;
+        }else{
+            low = mid +1;
+        }
+    }
+        int take =1;
+        if(id < pairs.length){
+            take = 1 + func(pairs, id,dp);
+        }
+        
+        int skip = func(pairs, i + 1, dp);
+
+        dp[i][0]= Math.max(take, skip);
+        return dp[i][0];
+    }
+
 }
