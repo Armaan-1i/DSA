@@ -1,8 +1,8 @@
 class Solution {
     void fun(String str,int a, int b, int n, List<String> ans) {
-        // if( b>a){
-        //     return;
-        // }
+        if( b>a){
+            return;
+        }
         if (str.length() == 2 * n) {
             ans.add(str);
             return;
